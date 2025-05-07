@@ -3,22 +3,23 @@ const prisma = new PrismaClient();
 
 const create = async (req, res) => {
     try {
-        const passageiros = await prisma.passageiros.create({
+        const motorista = await prisma.motoristas.create({
+            data: req.body
         });
-        return res.status(201).json(passageiros);
+        return res.status(201).json(motorista);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
 }
 
 const read = async (req, res) => {
-    const passageiroospassageiros = await prisma.passageiros.findMany(); 
-    return res.json(passageiroospassageiros);
+    const motoristas = await prisma.motoristas.findMany();
+    return res.json(motoristas);
 }
 
 const readOne = async (req, res) => {
     try {
-        const passageiros = await prisma.passageiros.findUnique({ 
+        const motorista = await prisma.motoristas.findUnique({
             select: {
                 id: true,
                 nome: true,
@@ -30,7 +31,7 @@ const readOne = async (req, res) => {
                 id: Number(req.params.id)
             }
         });
-        return res.json(passageiros);
+        return res.json(motorista);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -38,13 +39,13 @@ const readOne = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const passageiros = await prisma.passageiros.update({ 
+        const motorista = await prisma.motoristas.update({
             where: {
                 id: Number(req.params.id)
             },
             data: req.body
         });
-        return res.status(202).json(passageiros);
+        return res.status(202).json(motorista);
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
@@ -52,7 +53,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        await prisma.passageiros.delete({ 
+        await prisma.motoristas.delete({
             where: {
                 id: Number(req.params.id)
             }
